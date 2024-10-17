@@ -5,13 +5,13 @@ import plotly.express as px
 # Título de la aplicación
 st.title("Expected Ride Duration vs Historical Cost of Ride")
 
-# Incluir una imagen en la aplicación
-st.image("img/oferta.png", caption="Descripción de la imagen", use_column_width=True)
+# Opción para seleccionar el número de columnas
+layout_option = st.selectbox("Selecciona el diseño de columnas", ("Una columna", "Dos columnas"))
 
 # Cargar datos
 data = pd.read_csv("Data/dynamic_pricing.csv")
 
-# Mostrar los datos en la aplicación (opcional)
+# Mostrar los datos (opcional)
 st.write(data.head())
 
 # Crear gráfico de dispersión
@@ -20,5 +20,18 @@ fig = px.scatter(data, x='Expected_Ride_Duration',
                  title='Expected Ride Duration vs Historical Cost of Ride',
                  trendline='ols')
 
-# Mostrar el gráfico en Streamlit
-st.plotly_chart(fig)
+# Condición para cambiar entre una y dos columnas
+if layout_option == "Una columna":
+    # Diseño de una columna
+    st.image("ruta/a/tu_imagen.jpg", caption="Descripción de la imagen", use_column_width=True)
+    st.plotly_chart(fig)
+
+elif layout_option == "Dos columnas":
+    # Diseño de dos columnas
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.image("ruta/a/tu_imagen.jpg", caption="Descripción de la imagen", use_column_width=True)
+    
+    with col2:
+        st.plotly_chart(fig)

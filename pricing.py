@@ -17,7 +17,7 @@ hide_streamlit_style = """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 # Título de la aplicación
-st.title("Expected Ride Duration vs Historical Cost of Ride")
+st.title("Precios dinámicos basados ​​en datos mediante Python y aprendizaje automático")
 
 # Cargar datos
 data = pd.read_csv("Data/dynamic_pricing.csv")

@@ -23,7 +23,7 @@ fig = px.scatter(data, x='Expected_Ride_Duration',
 # Condición para cambiar entre una y dos columnas
 if layout_option == "Una columna":
     # Diseño de una columna
-    st.image("img/tu_imagen.jpg", caption="Descripción de la imagen", use_column_width=True)
+    st.image("img/demanda.png", caption="Descripción de la imagen", use_column_width=True)
     st.plotly_chart(fig)
 
 elif layout_option == "Dos columnas":
@@ -31,7 +31,7 @@ elif layout_option == "Dos columnas":
     col1, col2 = st.columns(2)
     
     with col1:
-        st.image("img/tu_imagen.jpg", caption="Descripción de la imagen", use_column_width=True)
+        st.image("img/demanda.png", caption="Descripción de la imagen", use_column_width=True)
     
     with col2:
         st.plotly_chart(fig)

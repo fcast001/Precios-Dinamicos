@@ -12,13 +12,13 @@ st.title("Expected Ride Duration vs Historical Cost of Ride")
 data = pd.read_csv("Data/dynamic_pricing.csv")
 
 # Sección 1: Diseño en una sola columna pero con imagen controlada en ancho
-st.image("img/demanda.png", caption="Descripción de la imagen", width=500)  # Ajustar el ancho de la imagen
-
+ # Ajustar el ancho de la imagen
+st.write(data.head())
 # Sección 2: Mostrar los datos y el gráfico de dispersión en dos columnas
 col1, col2 = st.columns(2)
 
 with col1:
-    st.write(data.head())  # Mostrar algunos datos
+    st.image("img/demanda.png", caption="Descripción de la imagen", width=500)   # Mostrar algunos datos
 
 with col2:
     # Crear gráfico de dispersión

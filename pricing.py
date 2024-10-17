@@ -10,8 +10,7 @@ hide_streamlit_style = """
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
-    .stApp {margin-bottom: 0;} /* Asegura que el espacio del botón no afecte el layout */
-    .css-1siy2j7 {visibility: hidden;} /* Ocultar el botón "Manage App" */
+    button[data-testid="manage-app-button"] {visibility: hidden;} /* Ocultar el botón "Manage App" */
     </style>
     """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)

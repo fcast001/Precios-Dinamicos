@@ -6,7 +6,7 @@ import plotly.express as px
 st.title("Expected Ride Duration vs Historical Cost of Ride")
 
 # Incluir una imagen en la aplicación
-st.image("img/a/oferta.png", caption="Descripción de la imagen", use_column_width=True)
+st.image("img/oferta.png", caption="Descripción de la imagen", use_column_width=True)
 
 # Cargar datos
 data = pd.read_csv("Data/dynamic_pricing.csv")

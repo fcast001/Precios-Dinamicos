@@ -2,6 +2,9 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
+# Configurar la página para que sea más ancha
+st.set_page_config(layout="wide")
+
 # Título de la aplicación
 st.title("Expected Ride Duration vs Historical Cost of Ride")
 

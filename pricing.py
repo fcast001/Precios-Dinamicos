@@ -5,6 +5,15 @@ import plotly.express as px
 # Configurar la página para que sea más ancha
 st.set_page_config(layout="wide")
 
+hide_streamlit_style = """
+    <style>
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    </style>
+    """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
 # Título de la aplicación
 st.title("Expected Ride Duration vs Historical Cost of Ride")
 

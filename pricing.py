@@ -11,10 +11,22 @@ hide_streamlit_style = """
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
-    button._terminalButton_rix23_138 {visibility: hidden;} /* Ocultar el botón "Manage App" */
     </style>
     """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
+# Agregar un pequeño JavaScript para ocultar el botón "Manage App"
+hide_button_js = """
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var manageButton = document.querySelector('button[data-testid="manage-app-button"]');
+        if (manageButton) {
+            manageButton.style.display = 'none';  // Ocultar el botón
+        }
+    });
+    </script>
+    """
+st.markdown(hide_button_js, unsafe_allow_html=True)
 
 # Título de la aplicación
 st.title("Expected Ride Duration vs Historical Cost of Ride")

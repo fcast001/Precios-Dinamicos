@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 from io import StringIO
-import sys
 
 # Configurar la página para que sea más ancha
 st.set_page_config(layout="wide")
@@ -23,11 +22,19 @@ st.title("Expected Ride Duration vs Historical Cost of Ride")
 # Cargar datos
 data = pd.read_csv("Data/dynamic_pricing.csv")
 
-# Mostrar información del DataFrame
-buffer = StringIO()
-data.info(buf=buffer)
-s = buffer.getvalue()
-st.text(s)  # Mostrar la información como texto
+# Crear columnas para el texto y la tabla
+col1, col2 = st.columns(2)
+
+with col1:
+    # Texto descriptivo
+    st.write("Realizamos un análisis exploratorio de datos para tener una mejor visión de las estadísticas descriptivas de los datos.")
+
+with col2:
+    # Mostrar información del DataFrame
+    buffer = StringIO()
+    data.info(buf=buffer)
+    s = buffer.getvalue()
+    st.text(s)  # Mostrar la información como texto
 
 # Sección 1: Diseño en una sola columna pero con imagen controlada en ancho
 st.write(data.head())

@@ -11,7 +11,7 @@ hide_streamlit_style = """
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
-    button[data-testid="manage-app-button"] {visibility: hidden;} /* Ocultar el botón "Manage App" */
+    button._terminalButton_rix23_138 {visibility: hidden;} /* Ocultar el botón "Manage App" */
     </style>
     """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)

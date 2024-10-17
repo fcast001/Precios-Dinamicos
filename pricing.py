@@ -12,6 +12,9 @@ hide_streamlit_style = """
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
+    .st-emotion-cache-1jicfl2 {
+        padding: 0;  /* Quitar el padding */
+    }
     </style>
     """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)

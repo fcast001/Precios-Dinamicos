@@ -48,12 +48,10 @@ with col1:
 st.markdown("""
     <style>
     .custom-subheader {
-        background-color: #4CAF50; /* Cambia el color aquí */
+        background-color: ##a6bba7; /* Cambia el color aquí */
         color: white;
         padding: 10px;
         font-size: 24px;
-        border-radius: 5px;
-        text-align: center;
     }
     </style>
     <div class="custom-subheader">Correlación de variables</div>

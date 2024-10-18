@@ -19,16 +19,14 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 # Título de la aplicación
 st.title("Precios dinámicos con Python y Aprendizaje Automático")
 
-st.subheader("Una aplicación de predicción de precios utilizando modelos de machine learning")
-
 # Cargar datos
 data = pd.read_csv("Data/dynamic_pricing.csv")
 
-st.subheader("Una aplicación de predicción de precios utilizando modelos de machine learning")
+st.subheader("Vista Previa de los datos")
 # Sección 1: Diseño en una sola columna pero con imagen controlada en ancho
 st.write(data.head())
 
-st.subheader("Una aplicación de predicción de precios utilizando modelos de machine learning")
+st.subheader("Vista Descriptiva de los datos")
 # Crear columnas para el texto y la tabla
 col1, col2 = st.columns(2)
 with col1:

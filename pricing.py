@@ -45,7 +45,7 @@ with col1:
     """
 
     st.code(notebook_code, language='python')
-
+st.subheader("Correlación de variables")
 with col2:
     # Mostrar información del DataFrame
     buffer = StringIO()
@@ -55,6 +55,8 @@ with col2:
 
 # Sección 2: Mostrar los datos y el gráfico de dispersión en dos columnas
 col1, col2 = st.columns(2)
+
+
 
 with col1:
     #st.image("img/demanda.png", caption="Descripción de la imagen", width=500)  # Mostrar algunos datos

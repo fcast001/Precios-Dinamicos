@@ -25,6 +25,10 @@ data = pd.read_csv("Data/dynamic_pricing.csv")
 # Crear columnas para el texto y la tabla
 col1, col2 = st.columns(2)
 
+
+# Sección 1: Diseño en una sola columna pero con imagen controlada en ancho
+st.write(data.head())
+
 with col1:
     # Texto descriptivo
     st.write("Realizamos un análisis exploratorio de datos para tener una mejor visión de las estadísticas descriptivas de los datos.")
@@ -35,10 +39,7 @@ with col2:
     data.info(buf=buffer)
     s = buffer.getvalue()
     st.text(s)  # Mostrar la información como texto
-
-# Sección 1: Diseño en una sola columna pero con imagen controlada en ancho
-st.write(data.head())
-
+    
 # Sección 2: Mostrar los datos y el gráfico de dispersión en dos columnas
 col1, col2 = st.columns(2)
 

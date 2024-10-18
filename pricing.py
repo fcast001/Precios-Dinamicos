@@ -26,7 +26,17 @@ st.subheader("Vista Previa de los datos")
 # Sección 1: Diseño en una sola columna pero con imagen controlada en ancho
 st.write(data.head())
 
-st.subheader("Vista Descriptiva de los datos")
+st.markdown("""
+    <style>
+    .custom-subheader {
+        background-color: #a6bba7; /* Cambia el color aquí */
+        color: white;
+        padding: 10px;
+        font-size: 24px;
+    }
+    </style>
+    <div class="custom-subheader">Vista Descriptiva de los datos</div>
+    """, unsafe_allow_html=True)
 # Crear columnas para el texto y la tabla
 col1, col2 = st.columns(2)
 with col1:

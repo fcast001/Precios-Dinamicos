@@ -66,11 +66,9 @@ with col2:
 # Sección 2: Mostrar los datos y el gráfico de dispersión en dos columnas
 col1, col2 = st.columns(2)
 
-
-
 with col1:
     #st.image("img/demanda.png", caption="Descripción de la imagen", width=500)  # Mostrar algunos datos
-    st.write("Ahora veamos la relación entre la duración esperada del viaje y el costo histórico del viaje:")
+    st.write("<br>Ahora veamos la relación entre la duración esperada del viaje y el costo histórico del viaje:")
     # Mostrar código del notebook
     notebook_code = """
     #plotting a box plot graph for cost of ride against vehicle type

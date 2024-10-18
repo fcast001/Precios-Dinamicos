@@ -45,7 +45,19 @@ with col1:
     """
 
     st.code(notebook_code, language='python')
-st.subheader("Correlación de variables")
+st.markdown("""
+    <style>
+    .custom-subheader {
+        background-color: #4CAF50; /* Cambia el color aquí */
+        color: white;
+        padding: 10px;
+        font-size: 24px;
+        border-radius: 5px;
+        text-align: center;
+    }
+    </style>
+    <div class="custom-subheader">Correlación de variables</div>
+    """, unsafe_allow_html=True)
 with col2:
     # Mostrar información del DataFrame
     buffer = StringIO()

@@ -38,10 +38,10 @@ with col1:
     import pandas as pd
 
     # Cargamos los datos de precios
-    df = pd.read_csv('precios_cataluna.csv')
+    data = pd.read_csv("Data/dynamic_pricing.csv")
 
     # Visualizamos los primeros datos
-    df.head()
+    data.head()
     """
 
     st.code(notebook_code, language='python')
@@ -57,7 +57,18 @@ with col2:
 col1, col2 = st.columns(2)
 
 with col1:
-    st.image("img/demanda.png", caption="Descripción de la imagen", width=500)  # Mostrar algunos datos
+    #st.image("img/demanda.png", caption="Descripción de la imagen", width=500)  # Mostrar algunos datos
+    st.write("Ahora veamos la relación entre la duración esperada del viaje y el costo histórico del viaje:")
+    # Mostrar código del notebook
+    notebook_code = """
+    #plotting a box plot graph for cost of ride against vehicle type
+    fig = px.box(data, x='Vehicle_Type',
+                y='Historical_Cost_of_Ride',
+                title='Historical Cost of Ride Distribution by Vehicle Type')
+    fig.show()
+    """
+
+    st.code(notebook_code, language='python')
 
 with col2:
     # Crear gráfico de dispersión

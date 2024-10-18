@@ -33,6 +33,32 @@ with col1:
     # Texto descriptivo
     st.write("Realizamos un análisis exploratorio de datos para tener una mejor visión de las estadísticas descriptivas de los datos.")
 
+    import streamlit as st
+
+# Título de la sección
+st.title("Precios dinámicos basados en datos mediante Python y aprendizaje automático")
+
+# Sección del Jupyter Notebook
+st.subheader("Sección orientada a Jupyter Notebook")
+
+st.markdown("""
+Aquí puedes ver un fragmento de código tomado de nuestro análisis en Jupyter Notebook:
+""")
+
+# Mostrar código del notebook
+notebook_code = """
+import pandas as pd
+
+# Cargamos los datos de precios
+df = pd.read_csv('precios_cataluna.csv')
+
+# Visualizamos los primeros datos
+df.head()
+"""
+
+st.code(notebook_code, language='python')
+
+
 with col2:
     # Mostrar información del DataFrame
     buffer = StringIO()

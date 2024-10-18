@@ -33,10 +33,6 @@ with col1:
     # Texto descriptivo
     st.write("Realizamos un análisis exploratorio de datos para tener una mejor visión de las estadísticas descriptivas de los datos.")
 
-    import streamlit as st
-
-# Título de la sección
-st.title("Precios dinámicos basados en datos mediante Python y aprendizaje automático")
 
 # Sección del Jupyter Notebook
 st.subheader("Sección orientada a Jupyter Notebook")
@@ -57,7 +53,6 @@ df.head()
 """
 
 st.code(notebook_code, language='python')
-
 
 with col2:
     # Mostrar información del DataFrame

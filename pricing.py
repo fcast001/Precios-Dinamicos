@@ -84,10 +84,10 @@ with col1:
 
     # Mostrar código del notebook
     notebook_code = """
-    #plotting a box plot graph for cost of ride against vehicle type
+    #Gráfico de dispersión de la duración del viaje frente al coste del mismo
     fig = px.box(data, x='Vehicle_Type',
                 y='Historical_Cost_of_Ride',
-                title='Historical Cost of Ride Distribution by Vehicle Type')
+                title='Duración prevista del viaje vs coste histórico del viaje')
     fig.show()
     """
 

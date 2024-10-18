@@ -97,6 +97,6 @@ with col2:
     # Crear gráfico de dispersión
     fig = px.scatter(data, x='Expected_Ride_Duration', 
                      y='Historical_Cost_of_Ride',
-                     title='Expected Ride Duration vs Historical Cost of Ride',
+                     title='Duración prevista del viaje vs coste histórico del viaje',
                      trendline='ols')
     st.plotly_chart(fig)

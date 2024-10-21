@@ -278,4 +278,4 @@ with col2:
         np.maximum(data['supply_multiplier'], supply_threshold_high)
     )
 
-    st.write(data.head())
+    st.write(data.head(50))

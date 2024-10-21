@@ -474,7 +474,7 @@ with col1:
     #st.image("img/demanda.png", caption="Descripción de la imagen", width=500)  # Mostrar algunos datos
 
 
-    st.markdown("<br><p>Paso numero 1: </p>Ahora que hemos implementado una estrategia de precios dinámicos, vamos a entrenar un modelo de aprendizaje automático. Antes de entrenar el modelo, vamos a preprocesar los datos", unsafe_allow_html=True)
+    st.markdown("<p>Paso numero 1: </p>Ahora que hemos implementado una estrategia de precios dinámicos, vamos a entrenar un modelo de aprendizaje automático. Antes de entrenar el modelo, vamos a preprocesar los datos", unsafe_allow_html=True)
 
 
     # Mostrar código del notebook
@@ -506,7 +506,7 @@ with col1:
     st.code(notebook_code, language='python')
 
 with col2:
-    st.markdown("<br><p>Paso numero 2: </p>Como el tipo de vehículo es un factor valioso, vamos a convertirlo en una característica numérica antes de continuar:", unsafe_allow_html=True)
+    st.markdown("<p>Paso numero 2: </p>Como el tipo de vehículo es un factor valioso, vamos a convertirlo en una característica numérica antes de continuar:", unsafe_allow_html=True)
  # Mostrar código del notebook
     notebook_code = """
         data["Vehicle_Type"] = data["Vehicle_Type"].map({"Premium": 1, "Economy": 0})
@@ -530,5 +530,63 @@ with col2:
         from sklearn.ensemble import RandomForestRegressor
         model = RandomForestRegressor()
         model.fit(x_train, y_train)
+    """
+    st.code(notebook_code, language='python')
+
+#####################################################################################################################################
+
+st.markdown("""
+    <style>
+    .custom-subheader {
+        background-color: #838483; /* Cambia el color aquí */
+        color: white;
+        padding: 10px;
+        font-size: 24px;
+    }
+    </style>
+    <div class="custom-subheader">Probando el modelo</div>
+    """, unsafe_allow_html=True)
+col1, col2 = st.columns(2)
+
+with col1:
+    #st.image("img/demanda.png", caption="Descripción de la imagen", width=500)  # Mostrar algunos datos
+
+
+    st.markdown("<p>Paso numero 1: </p>Ahora probaremos el modelo con unos datos de entrada:", unsafe_allow_html=True)
+
+
+    # Mostrar código del notebook
+    notebook_code = """
+        def get_vehicle_type_numeric(vehicle_type):
+        vehicle_type_mapping = {
+            "Premium": 1,
+            "Economy": 0
+        }
+        vehicle_type_numeric = vehicle_type_mapping.get(vehicle_type)
+        return vehicle_type_numeric
+    
+        # Predicting using user input values
+        def predict_price(number_of_riders, number_of_drivers, vehicle_type, Expected_Ride_Duration):
+            vehicle_type_numeric = get_vehicle_type_numeric(vehicle_type)
+            if vehicle_type_numeric is None:
+                raise ValueError("Invalid vehicle type")
+            
+            input_data = np.array([[number_of_riders, number_of_drivers, vehicle_type_numeric, Expected_Ride_Duration]])
+            predicted_price = model.predict(input_data)
+            return predicted_price
+
+        # Example prediction using user input values
+        user_number_of_riders = 50
+        user_number_of_drivers = 25
+        user_vehicle_type = "Economy"
+        Expected_Ride_Duration = 30
+        predicted_price = predict_price(user_number_of_riders, user_number_of_drivers, user_vehicle_type, Expected_Ride_Duration)
+        print("EL precio es:", predicted_price)
+    """
+    st.code(notebook_code, language='python')
+
+with col2:
+    notebook_code = """
+        EL precio es: [400.35927403]
     """
     st.code(notebook_code, language='python')

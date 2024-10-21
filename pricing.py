@@ -36,7 +36,7 @@ st.markdown("""
     </style>
     <div class="custom-subheader">Vista previa de los datos</div>
     """, unsafe_allow_html=True)
-st.write("<br>")
+st.markdown("<br>", unsafe_allow_html=True)
 # Sección 1: Diseño en una sola columna pero con imagen controlada en ancho
 st.write(data.head())
 
@@ -765,5 +765,18 @@ with col2:
     st.plotly_chart(fig)
 
 
-
-st.write("<br>En resumen, cuando se implementa la fijación de precios dinámicos, puede ser muy útil para que las empresas no solo establezcan y ajusten los precios de forma dinámica en función de diversos factores en tiempo real, sino que también mantengan la flexibilidad de sus precios para seguir siendo competitivas en sus respectivos mercados y obtener ganancias de sus productos o servicios.")
+st.markdown("""
+    <style>
+    .custom-subheader {
+        background-color: #838483; /* Cambia el color aquí */
+        color: white;
+        padding: 10px;
+        font-size: 24px;
+    }
+    </style>
+    <div class="custom-subheader">Conclusión</div>
+    """, unsafe_allow_html=True)
+st.markdown("<br>En resumen, cuando se implementa la fijación de precios dinámicos, puede ser muy"+
+            "útil para que las empresas no solo establezcan y ajusten los precios de forma dinámica en función de diversos factores"+
+            "en tiempo real, sino que también mantengan la flexibilidad de sus precios para seguir siendo competitivas en sus"+
+            "respectivos mercados y obtener ganancias de sus productos o servicios.", unsafe_allow_html=True)

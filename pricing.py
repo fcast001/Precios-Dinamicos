@@ -100,3 +100,28 @@ with col2:
                      title='Duración prevista del viaje vs coste histórico del viaje',
                      trendline='ols')
     st.plotly_chart(fig)
+
+col1, col2 = st.columns(2)
+
+with col1:
+    #st.image("img/demanda.png", caption="Descripción de la imagen", width=500)  # Mostrar algunos datos
+
+
+    st.markdown("<br>Ahora veamos la distribución del costo histórico de los viajes según el tipo de vehículo:", unsafe_allow_html=True)
+
+    # Mostrar código del notebook
+    notebook_code = """
+        fig = px.box(data, x='Vehicle_Type', 
+                    y='Historical_Cost_of_Ride',
+                    title='Historical Cost of Ride Distribution by Vehicle Type')
+        fig.show()
+    """
+
+    st.code(notebook_code, language='python')
+
+with col2:
+    # Crear gráfico de dispersión
+    fig = px.box(data, x='Vehicle_Type', 
+                    y='Historical_Cost_of_Ride',
+                    title='Historical Cost of Ride Distribution by Vehicle Type')
+    st.plotly_chart(fig)

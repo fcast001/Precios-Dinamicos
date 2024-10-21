@@ -38,7 +38,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 st.markdown("<br>", unsafe_allow_html=True)
 
-st.markdown("[Data Set](https://statso.io/dynamic-pricing-case-study/)")
+st.markdown("El conjunto de datos se puede descargar desde  [Aquí](https://statso.io/dynamic-pricing-case-study/)")
 # Sección 1: Diseño en una sola columna pero con imagen controlada en ancho
 st.write(data.head(4))
 

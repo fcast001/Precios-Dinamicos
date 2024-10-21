@@ -251,7 +251,7 @@ with col1:
     st.code(notebook_code, language='python')
 
 with col2:
-    st.write("<br>")
+    st.markdown("<br>")
     high_demand_percentile = 75
     low_demand_percentile = 25
 

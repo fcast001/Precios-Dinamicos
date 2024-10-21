@@ -474,7 +474,7 @@ with col1:
     #st.image("img/demanda.png", caption="Descripción de la imagen", width=500)  # Mostrar algunos datos
 
 
-    st.markdown("<br>Ahora que hemos implementado una estrategia de precios dinámicos, vamos a entrenar un modelo de aprendizaje automático. Antes de entrenar el modelo, vamos a preprocesar los datos", unsafe_allow_html=True)
+    st.markdown("<br><p>Paso numero 1: </p>Ahora que hemos implementado una estrategia de precios dinámicos, vamos a entrenar un modelo de aprendizaje automático. Antes de entrenar el modelo, vamos a preprocesar los datos", unsafe_allow_html=True)
 
 
     # Mostrar código del notebook
@@ -506,7 +506,7 @@ with col1:
     st.code(notebook_code, language='python')
 
 with col2:
-    st.markdown("<br>Como el tipo de vehículo es un factor valioso, vamos a convertirlo en una característica numérica antes de continuar:", unsafe_allow_html=True)
+    st.markdown("<br><p>Paso numero 2: </p>Como el tipo de vehículo es un factor valioso, vamos a convertirlo en una característica numérica antes de continuar:", unsafe_allow_html=True)
  # Mostrar código del notebook
     notebook_code = """
         data["Vehicle_Type"] = data["Vehicle_Type"].map({"Premium": 1, "Economy": 0})

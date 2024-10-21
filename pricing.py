@@ -776,7 +776,13 @@ st.markdown("""
     </style>
     <div class="custom-subheader">Conclusión</div>
     """, unsafe_allow_html=True)
-st.markdown("<br>En resumen, cuando se implementa la fijación de precios dinámicos, puede ser muy"+
-            "útil para que las empresas no solo establezcan y ajusten los precios de forma dinámica en función de diversos factores"+
-            "en tiempo real, sino que también mantengan la flexibilidad de sus precios para seguir siendo competitivas en sus"+
-            "respectivos mercados y obtener ganancias de sus productos o servicios.", unsafe_allow_html=True)
+st.markdown("<br>En resumen, la implementación de precios dinámicos ofrece una poderosa herramienta"+ 
+                "para que las empresas ajusten sus tarifas en función de una variedad de factores en tiempo real,"+
+                "como la demanda del mercado, la competencia, o el comportamiento del cliente. Esta estrategia no"+
+                "solo les permite reaccionar rápidamente a cambios en el entorno económico, sino que también les"+
+                "otorga la flexibilidad necesaria para optimizar sus precios y maximizar sus ingresos. Al mantener"+ 
+                "una estructura de precios adaptable, las empresas pueden no solo mejorar su competitividad, sino"+
+                "también aprovechar oportunidades de mayor rentabilidad al responder eficientemente a las fluctuaciones"+
+                "del mercado. En última instancia, el éxito de esta práctica radica en equilibrar la adaptación a las"+
+                "circunstancias externas sin comprometer la percepción de valor por parte de los clientes, lo que puede"+ 
+                "fortalecer su posición en el mercado a largo plazo.", unsafe_allow_html=True)

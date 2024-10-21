@@ -101,6 +101,18 @@ with col2:
                      trendline='ols')
     st.plotly_chart(fig)
 
+
+st.markdown("""
+    <style>
+    .custom-subheader {
+        background-color: #838483; /* Cambia el color aquí */
+        color: white;
+        padding: 10px;
+        font-size: 24px;
+    }
+    </style>
+    <div class="custom-subheader">Vista Descriptiva de los datos</div>
+    """, unsafe_allow_html=True)
 col1, col2 = st.columns(2)
 
 with col1:

@@ -410,3 +410,45 @@ with col2:
     fig.update_layout(title='Profitability of Rides (Dynamic Pricing vs. Historical Pricing)')
 
     st.plotly_chart(fig)
+
+#####################################################################################################################################
+
+st.markdown("""
+    <style>
+    .custom-subheader {
+        background-color: #838483; /* Cambia el color aquí */
+        color: white;
+        padding: 10px;
+        font-size: 24px;
+    }
+    </style>
+    <div class="custom-subheader">Real vs Estrategia</div>
+    """, unsafe_allow_html=True)
+col1, col2 = st.columns(2)
+
+with col1:
+    #st.image("img/demanda.png", caption="Descripción de la imagen", width=500)  # Mostrar algunos datos
+
+
+    st.markdown("<br>Ahora veamos la relación entre la duración esperada del viaje y el costo del viaje según la estrategia de precios dinámicos", unsafe_allow_html=True)
+
+
+    # Mostrar código del notebook
+    notebook_code = """
+        fig = px.scatter(data, 
+                 x='Expected_Ride_Duration', 
+                 y='adjusted_ride_cost',
+                 title='Expected Ride Duration vs. Cost of Ride', 
+                 trendline='ols')
+        fig.show()
+    """
+
+    st.code(notebook_code, language='python')
+
+with col2:
+    fig = px.scatter(data, 
+                 x='Expected_Ride_Duration', 
+                 y='adjusted_ride_cost',
+                 title='Duración esperada del viaje vs costo del viaje', 
+                 trendline='ols')
+    st.plotly_chart(fig)

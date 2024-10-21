@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import numpy as np
+from sklearn.preprocessing import StandardScaler
 
 from io import StringIO
 
@@ -452,3 +453,82 @@ with col2:
                  title='Duración esperada del viaje vs costo del viaje', 
                  trendline='ols')
     st.plotly_chart(fig)
+
+
+#####################################################################################################################################
+
+st.markdown("""
+    <style>
+    .custom-subheader {
+        background-color: #838483; /* Cambia el color aquí */
+        color: white;
+        padding: 10px;
+        font-size: 24px;
+    }
+    </style>
+    <div class="custom-subheader">Implementando el modelo</div>
+    """, unsafe_allow_html=True)
+col1, col2 = st.columns(2)
+
+with col1:
+    #st.image("img/demanda.png", caption="Descripción de la imagen", width=500)  # Mostrar algunos datos
+
+
+    st.markdown("<br>Ahora que hemos implementado una estrategia de precios dinámicos, vamos a entrenar un modelo de aprendizaje automático. Antes de entrenar el modelo, vamos a preprocesar los datos", unsafe_allow_html=True)
+
+
+    # Mostrar código del notebook
+    notebook_code = """
+        def data_preprocessing_pipeline(data):
+            #Identify numeric and categorical features
+            numeric_features = data.select_dtypes(include=['float', 'int']).columns
+            categorical_features = data.select_dtypes(include=['object']).columns
+
+            #Handle missing values in numeric features
+            data[numeric_features] = data[numeric_features].fillna(data[numeric_features].mean())
+
+            #Detect and handle outliers in numeric features using IQR
+            for feature in numeric_features:
+                Q1 = data[feature].quantile(0.25)
+                Q3 = data[feature].quantile(0.75)
+                IQR = Q3 - Q1
+                lower_bound = Q1 - (1.5 * IQR)
+                upper_bound = Q3 + (1.5 * IQR)
+                data[feature] = np.where((data[feature] < lower_bound) | (data[feature] > upper_bound),
+                                        data[feature].mean(), data[feature])
+
+            #Handle missing values in categorical features
+            data[categorical_features] = data[categorical_features].fillna(data[categorical_features].mode().iloc[0])
+
+            return data
+    """
+
+    st.code(notebook_code, language='python')
+
+with col2:
+    st.markdown("<br>Como el tipo de vehículo es un factor valioso, vamos a convertirlo en una característica numérica antes de continuar:", unsafe_allow_html=True)
+ # Mostrar código del notebook
+    notebook_code = """
+        data["Vehicle_Type"] = data["Vehicle_Type"].map({"Premium": 1, "Economy": 0})
+
+        #Ahora dividamos los datos y entrenemos un modelo de aprendizaje automático para predecir el costo de un viaje:
+
+        from sklearn.model_selection import train_test_split
+        x = np.array(data[["Number_of_Riders", "Number_of_Drivers", "Vehicle_Type", "Expected_Ride_Duration"]])
+        y = np.array(data[["adjusted_ride_cost"]])
+
+        x_train, x_test, y_train, y_test = train_test_split(x,
+                                                            y,
+                                                            test_size=0.2,
+                                                            random_state=42)
+
+        # Reshape y to 1D array
+        y_train = y_train.ravel()
+        y_test = y_test.ravel()
+
+        # Training a random forest regression model
+        from sklearn.ensemble import RandomForestRegressor
+        model = RandomForestRegressor()
+        model.fit(x_train, y_train)
+    """
+    st.code(notebook_code, language='python')

@@ -173,11 +173,13 @@ with col1:
     st.code(notebook_code, language='python')
 
 with col2:
-    corr_matrix = data.corr()
-    # Crear gráfico de dispersión
+    data_numeric = data.select_dtypes(include=[float, int])  # Solo columnas numéricas
+    corr_matrix = data_numeric.corr()
+
     fig = go.Figure(data=go.Heatmap(z=corr_matrix.values, 
-                                        x=corr_matrix.columns, 
-                                        y=corr_matrix.columns,
-                                        colorscale='Viridis'))
+                                    x=corr_matrix.columns, 
+                                    y=corr_matrix.columns,
+                                    colorscale='Viridis'))
     fig.update_layout(title='Correlation Matrix')
+
     st.plotly_chart(fig)

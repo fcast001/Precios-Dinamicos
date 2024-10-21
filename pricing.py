@@ -26,7 +26,17 @@ st.title("Precios dinámicos con Python y Aprendizaje Automático")
 # Cargar datos
 data = pd.read_csv("Data/dynamic_pricing.csv")
 
-st.subheader("Vista Previa de los datos")
+st.markdown("""
+    <style>
+    .custom-subheader {
+        background-color: #838483; /* Cambia el color aquí */
+        color: white;
+        padding: 10px;
+        font-size: 24px;
+    }
+    </style>
+    <div class="custom-subheader">Vista previa de los datos</div>
+    """, unsafe_allow_html=True)
 # Sección 1: Diseño en una sola columna pero con imagen controlada en ancho
 st.write(data.head())
 
@@ -591,3 +601,165 @@ with col2:
         EL precio es: [400.35927403]
     """
     st.code(notebook_code, language='python')
+
+#####################################################################################################################################
+
+st.markdown("""
+    <style>
+    .custom-subheader {
+        background-color: #838483; /* Cambia el color aquí */
+        color: white;
+        padding: 10px;
+        font-size: 24px;
+    }
+    </style>
+    <div class="custom-subheader">Validar la precicion del modelo</div>
+    """, unsafe_allow_html=True)
+col1, col2 = st.columns(2)
+
+with col1:
+    st.markdown("<br>Finalmente echaremos un vistazo a la precisión de predicción del modelo:", unsafe_allow_html=True)
+
+    # Mostrar código del notebook
+    notebook_code = """
+        #predicción del modelo
+        y_pred = model.predict(x_test) 
+
+        #comprobación de la precisión del modelo 
+        from sklearn.metrics import r2_score 
+
+        r2_score(y_test, y_pred)* 100
+    """
+    st.code(notebook_code, language='python')
+
+with col2:
+    st.markdown("<br>Resultado", unsafe_allow_html=True)
+    notebook_code = """
+        85.55389603902111
+    """
+    st.code(notebook_code, language='python')
+
+
+#####################################################################################################################################
+
+st.markdown("""
+    <style>
+    .custom-subheader {
+        background-color: #838483; /* Cambia el color aquí */
+        color: white;
+        padding: 10px;
+        font-size: 24px;
+    }
+    </style>
+    <div class="custom-subheader">Comparando</div>
+    """, unsafe_allow_html=True)
+col1, col2 = st.columns(2)
+
+with col1:
+    st.markdown("<br>El modelo tiene una precisión del 86%, que ciertamente no es la única métrica de rendimiento que"+ 
+                "se debe tener en cuenta al probar un modelo (también hay precisión y recuperación cuando se utiliza una"+ 
+                "matriz de confusión en un modelo de clasificación) ni su nivel de rendimiento óptimo, ya que la precisión"+ 
+                "se puede aumentar aún más tomando ciertas medidas como el ajuste de hiperparámetros y el aumento de la"+ 
+                "cantidad de muestras de datos en los datos de entrenamiento. Sin embargo, con la precisión registrada,"+ 
+                "los resultados obtenidos siguen siendo viables y de acuerdo con las variables influyentes utilizadas para hacer la predicción."+
+                "Luego podemos mostrar una comparación entre los valores reales y los previstos con un gráfico de dispersión:", unsafe_allow_html=True)
+
+    # Mostrar código del notebook
+    notebook_code = """
+        #predicción del modelo
+        y_pred = model.predict(x_test) 
+
+        #comprobación de la precisión del modelo 
+        from sklearn.metrics import r2_score 
+
+        r2_score(y_test, y_pred)* 100
+    """
+    st.code(notebook_code, language='python')
+
+with col2:
+
+    high_demand_percentile = 75
+    low_demand_percentile = 25
+
+    data['demand_multiplier'] = np.where(data['Number_of_Riders'] > np.percentile(data['Number_of_Riders'], high_demand_percentile),
+                                        data['Number_of_Riders'] / np.percentile(data['Number_of_Riders'], high_demand_percentile),
+                                        data['Number_of_Riders'] / np.percentile(data['Number_of_Riders'], low_demand_percentile))
+
+    high_supply_percentile = 75
+    low_supply_percentile = 25
+
+    data['supply_multiplier'] = np.where(data['Number_of_Drivers'] > np.percentile(data['Number_of_Drivers'], low_supply_percentile),
+                                        np.percentile(data['Number_of_Drivers'], high_supply_percentile) / data['Number_of_Drivers'],
+                                        np.percentile(data['Number_of_Drivers'], low_supply_percentile) / data['Number_of_Drivers'])
+
+    demand_threshold_high = 1.2 #higher demand threshold
+    demand_threshold_low = 0.8 #lower demand threshold
+    supply_threshold_high = 0.8 #higher supply threshold
+    supply_threshold_low = 1.2 #lower supply threshold
+
+    data['adjusted_ride_cost'] = data['Historical_Cost_of_Ride'] * (
+        np.maximum(data['demand_multiplier'], demand_threshold_low) * 
+        np.maximum(data['supply_multiplier'], supply_threshold_high)
+    )
+
+    def data_preprocessing_pipeline(data):
+        numeric_features = data.select_dtypes(include=['float','int']).columns
+        categorical_features = data.select_dtypes(include=['object']).columns
+        data[numeric_features] = data[numeric_features].fillna(data[numeric_features].mean())
+        for feature in numeric_features:
+            Q1 = data[feature].quantile(0.25)
+            Q3 = data[feature].quantile(0.75)
+            IQR = Q3 - Q1
+            lower_bound = Q1 - (1.5 * IQR)
+            upper_bound = Q3 + (1.5 * IQR)
+            data[feature] = np.where((data[feature] < lower_bound) | (data[feature] > upper_bound),
+                                    data[feature].mean(), data[feature])
+
+            data[categorical_features] = data[categorical_features].fillna(data[categorical_features].mode().iloc[0])
+
+            return data
+
+    data["Vehicle_Type"] = data["Vehicle_Type"].map({"Premium": 1, "Economy": 0})
+    data["Time_of_Booking"] = data["Time_of_Booking"].map({"Afternoon": 0, "Evening": 1, "Morning": 2, "Night": 3})
+
+    from sklearn.model_selection import train_test_split
+    x = np.array(data[["Number_of_Riders", "Number_of_Drivers", "Vehicle_Type", "Time_of_Booking", "Expected_Ride_Duration"]])
+    y = np.array(data[["adjusted_ride_cost"]])
+
+    x_train, x_test, y_train, y_test = train_test_split(x,
+                                                        y,
+                                                        test_size=0.2,
+                                                        random_state=42)
+
+    y_train = y_train.ravel()
+    y_test = y_test.ravel()
+
+    from sklearn.ensemble import RandomForestRegressor
+    model = RandomForestRegressor()
+    model.fit(x_train, y_train)
+
+    import plotly.graph_objects as go
+    y_pred = model.predict(x_test)
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=y_test.flatten(),
+        y=y_pred,
+        mode='markers',
+        name='Actual vs Predicted'
+    ))
+
+    fig.add_trace(go.Scatter(
+        x=[min(y_test.flatten()), max(y_test.flatten())],
+        y=[min(y_test.flatten()), max(y_test.flatten())],
+        mode='lines',
+        name='Ideal',
+        line=dict(color='red', dash='dash')
+    ))
+
+    fig.update_layout(
+        title='Actual vs Predicted Values',
+        xaxis_title='Actual Values',
+        yaxis_title='Predicted Values',
+        showlegend=True
+    )
+    st.plotly_chart(fig)

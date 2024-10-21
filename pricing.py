@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+import numpy as np
 
 from io import StringIO
 
@@ -250,9 +251,31 @@ with col1:
     st.code(notebook_code, language='python')
 
 with col2:
-    data_numeric = data.select_dtypes(include=[float, int])  # Solo columnas numéricas
-    corr_matrix = data_numeric.corr()
+    high_demand_percentile = 75
+    low_demand_percentile = 25
 
-    fig = data.head(10)
+    data['demand_multiplier'] = np.where(data['Number_of_Riders'] > np.percentile(data['Number_of_Riders'], high_demand_percentile),
+                                        data['Number_of_Riders'] / np.percentile(data['Number_of_Riders'], high_demand_percentile),
+                                        data['Number_of_Riders'] / np.percentile(data['Number_of_Riders'], low_demand_percentile))
+
+    # Calculate supply_multiplier based on percentile for high and low supply
+    high_supply_percentile = 75
+    low_supply_percentile = 25
+
+    data['supply_multiplier'] = np.where(data['Number_of_Drivers'] > np.percentile(data['Number_of_Drivers'], low_supply_percentile),
+                                        np.percentile(data['Number_of_Drivers'], high_supply_percentile) / data['Number_of_Drivers'],
+                                        np.percentile(data['Number_of_Drivers'], low_supply_percentile) / data['Number_of_Drivers'])
+
+    # Define price adjustment factors for high and low demand/supply
+    demand_threshold_high = 1.2  # Higher demand threshold
+    demand_threshold_low = 0.8  # Lower demand threshold
+    supply_threshold_high = 0.8  # Higher supply threshold
+    supply_threshold_low = 1.2  # Lower supply threshold
+
+    # Calculate adjusted_ride_cost for dynamic pricing
+    data['adjusted_ride_cost'] = data['Historical_Cost_of_Ride'] * (
+        np.maximum(data['demand_multiplier'], demand_threshold_low) *
+        np.maximum(data['supply_multiplier'], supply_threshold_high)
+    )
 
     st.write(data.head())

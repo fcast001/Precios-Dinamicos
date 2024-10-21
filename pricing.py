@@ -586,6 +586,7 @@ with col1:
     st.code(notebook_code, language='python')
 
 with col2:
+    st.markdown("<br>Resultado", unsafe_allow_html=True)
     notebook_code = """
         EL precio es: [400.35927403]
     """

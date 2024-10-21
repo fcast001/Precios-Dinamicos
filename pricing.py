@@ -320,3 +320,93 @@ with col2:
     )
 
     st.write(data.head(10))
+
+
+#####################################################################################################################################
+
+st.markdown("""
+    <style>
+    .custom-subheader {
+        background-color: #838483; /* Cambia el color aquí */
+        color: white;
+        padding: 10px;
+        font-size: 24px;
+    }
+    </style>
+    <div class="custom-subheader">Implementación de una estrategia de precios dinámicos</div>
+    """, unsafe_allow_html=True)
+col1, col2 = st.columns(2)
+
+with col1:
+    #st.image("img/demanda.png", caption="Descripción de la imagen", width=500)  # Mostrar algunos datos
+
+
+    st.markdown("En el código anterior, calculamos primero el multiplicador de demanda comparando la cantidad de"+ 
+                 "pasajeros con percentiles que representan niveles de demanda alta y baja. Si la cantidad de pasajeros"+ 
+                 "supera el percentil de demanda alta, el multiplicador de demanda se establece como la cantidad de pasajeros"+ 
+                 "dividida por el percentil de demanda alta. De lo contrario, si la cantidad de pasajeros cae por debajo del"+ 
+                 "percentil de demanda baja, el multiplicador de demanda se establece como la cantidad de pasajeros dividida por"+ 
+                 "el percentil de demanda baja. A continuación, calculamos el multiplicador de la oferta comparando el número"+ 
+                 "de impulsores con los percentiles que representan los niveles de oferta altos y bajos. Si el número de"+ 
+                 "impulsores supera el percentil de oferta baja, el multiplicador de la oferta se establece como el percentil"+ 
+                 "de oferta alta dividido por el número de impulsores. Por otro lado, si el número de impulsores está por debajo"+ 
+                 "del percentil de oferta baja, el multiplicador de la oferta se establece como el percentil de oferta baja dividido"+ 
+                 "por el número de impulsores. Por último, calculamos el costo del viaje ajustado para el precio dinámico. Multiplica"+ 
+                 "el costo histórico del viaje por el máximo del multiplicador de demanda y un umbral inferior (demand_threshold_low),"+ 
+                 "y también por el máximo del multiplicador de oferta y un umbral superior (supply_threshold_high). Esta multiplicación"+
+                 "garantiza que el costo del viaje ajustado capture el efecto combinado de los multiplicadores de demanda y oferta,"+ 
+                 "y que los umbrales sirvan como topes o pisos para controlar los ajustes de precios.", unsafe_allow_html=True)
+
+
+    # Mostrar código del notebook
+    notebook_code = """
+        # Calculate the profit percentage for each ride
+        data['profit_percentage'] = ((data['adjusted_ride_cost'] - data['Historical_Cost_of_Ride']) / data['Historical_Cost_of_Ride']) * 100
+        # Identify profitable rides where profit percentage is positive
+        profitable_rides = data[data['profit_percentage'] > 0]
+
+        # Identify loss rides where profit percentage is negative
+        loss_rides = data[data['profit_percentage'] < 0]
+
+
+        import plotly.graph_objects as go
+
+        # Calculate the count of profitable and loss rides
+        profitable_count = len(profitable_rides)
+        loss_count = len(loss_rides)
+
+        # Create a donut chart to show the distribution of profitable and loss rides
+        labels = ['Profitable Rides', 'Loss Rides']
+        values = [profitable_count, loss_count]
+
+        fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=0.4)])
+        fig.update_layout(title='Profitability of Rides (Dynamic Pricing vs. Historical Pricing)')
+        fig.show()
+    """
+
+    st.code(notebook_code, language='python')
+
+with col2:
+    # Calculate the profit percentage for each ride
+    data['profit_percentage'] = ((data['adjusted_ride_cost'] - data['Historical_Cost_of_Ride']) / data['Historical_Cost_of_Ride']) * 100
+    # Identify profitable rides where profit percentage is positive
+    profitable_rides = data[data['profit_percentage'] > 0]
+
+    # Identify loss rides where profit percentage is negative
+    loss_rides = data[data['profit_percentage'] < 0]
+
+
+    import plotly.graph_objects as go
+
+    # Calculate the count of profitable and loss rides
+    profitable_count = len(profitable_rides)
+    loss_count = len(loss_rides)
+
+    # Create a donut chart to show the distribution of profitable and loss rides
+    labels = ['Profitable Rides', 'Loss Rides']
+    values = [profitable_count, loss_count]
+
+    fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=0.4)])
+    fig.update_layout(title='Profitability of Rides (Dynamic Pricing vs. Historical Pricing)')
+
+    st.plotly_chart(fig)

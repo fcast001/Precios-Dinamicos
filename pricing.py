@@ -111,7 +111,7 @@ st.markdown("""
         font-size: 24px;
     }
     </style>
-    <div class="custom-subheader">Vista Descriptiva de los datos</div>
+    <div class="custom-subheader">Descripción de Costos por tipo de vehiculo</div>
     """, unsafe_allow_html=True)
 col1, col2 = st.columns(2)
 
@@ -136,4 +136,48 @@ with col2:
     fig = px.box(data, x='Vehicle_Type', 
                     y='Historical_Cost_of_Ride',
                     title='Historical Cost of Ride Distribution by Vehicle Type')
+    st.plotly_chart(fig)
+
+
+st.markdown("""
+    <style>
+    .custom-subheader {
+        background-color: #838483; /* Cambia el color aquí */
+        color: white;
+        padding: 10px;
+        font-size: 24px;
+    }
+    </style>
+    <div class="custom-subheader">Matríz de correlación</div>
+    """, unsafe_allow_html=True)
+col1, col2 = st.columns(2)
+
+with col1:
+    #st.image("img/demanda.png", caption="Descripción de la imagen", width=500)  # Mostrar algunos datos
+
+
+    st.markdown("<br>Ahora echemos un vistazo a la matriz de correlación:", unsafe_allow_html=True)
+
+    # Mostrar código del notebook
+    notebook_code = """
+        corr_matrix = data.corr()
+
+        fig = go.Figure(data=go.Heatmap(z=corr_matrix.values, 
+                                        x=corr_matrix.columns, 
+                                        y=corr_matrix.columns,
+                                        colorscale='Viridis'))
+        fig.update_layout(title='Correlation Matrix')
+        fig.show()
+    """
+
+    st.code(notebook_code, language='python')
+
+with col2:
+    corr_matrix = data.corr()
+    # Crear gráfico de dispersión
+    fig = go.Figure(data=go.Heatmap(z=corr_matrix.values, 
+                                        x=corr_matrix.columns, 
+                                        y=corr_matrix.columns,
+                                        colorscale='Viridis'))
+    fig.update_layout(title='Correlation Matrix')
     st.plotly_chart(fig)

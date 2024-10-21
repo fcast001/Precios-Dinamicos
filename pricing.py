@@ -144,6 +144,46 @@ with col2:
     st.plotly_chart(fig)
 
 
+#####################################################################################################################################
+
+st.markdown("""
+    <style>
+    .custom-subheader {
+        background-color: #838483; /* Cambia el color aquí */
+        color: white;
+        padding: 10px;
+        font-size: 24px;
+    }
+    </style>
+    <div class="custom-subheader">Descripción de Costos por Estado del día</div>
+    """, unsafe_allow_html=True)
+col1, col2 = st.columns(2)
+
+with col1:
+    #st.image("img/demanda.png", caption="Descripción de la imagen", width=500)  # Mostrar algunos datos
+
+
+    st.markdown("<br>Ahora veamos la distribución del costo histórico de los viajes según el tipo de hora en la que esta el día:", unsafe_allow_html=True)
+
+    # Mostrar código del notebook
+    notebook_code = """
+        fig = px.box(data, x='Vehicle_Type', 
+                    y='Historical_Cost_of_Ride',
+                    title='Historical Cost of Ride Distribution by Vehicle Type')
+        fig.show()
+    """
+
+    st.code(notebook_code, language='python')
+
+with col2:
+    # Crear gráfico de dispersión
+    fig = px.box(data, x='Time_of_Booking',
+             y='Historical_Cost_of_Ride',
+             title='Historical Cost of Ride Distribution by Time of Booking')
+    st.plotly_chart(fig)
+
+########################################################################################################################################
+
 st.markdown("""
     <style>
     .custom-subheader {
@@ -279,4 +319,4 @@ with col2:
         np.maximum(data['supply_multiplier'], supply_threshold_high)
     )
 
-    st.write(data.head(50))
+    st.write(data.head(10))

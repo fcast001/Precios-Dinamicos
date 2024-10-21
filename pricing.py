@@ -552,7 +552,7 @@ with col1:
     #st.image("img/demanda.png", caption="Descripción de la imagen", width=500)  # Mostrar algunos datos
 
 
-    st.markdown("<p>Paso numero 1: </p>Ahora probaremos el modelo con unos datos de entrada:", unsafe_allow_html=True)
+    st.markdown("<br>Ahora probaremos el modelo con unos datos de entrada:", unsafe_allow_html=True)
 
 
     # Mostrar código del notebook

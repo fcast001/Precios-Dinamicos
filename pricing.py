@@ -22,7 +22,6 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 # Título de la aplicación
 st.title("Precios dinámicos con Python y Aprendizaje Automático")
-
 # Cargar datos
 data = pd.read_csv("Data/dynamic_pricing.csv")
 
@@ -37,6 +36,7 @@ st.markdown("""
     </style>
     <div class="custom-subheader">Vista previa de los datos</div>
     """, unsafe_allow_html=True)
+st.write("<br>")
 # Sección 1: Diseño en una sola columna pero con imagen controlada en ancho
 st.write(data.head())
 
@@ -763,3 +763,7 @@ with col2:
         showlegend=True
     )
     st.plotly_chart(fig)
+
+
+
+st.write("<br>En resumen, cuando se implementa la fijación de precios dinámicos, puede ser muy útil para que las empresas no solo establezcan y ajusten los precios de forma dinámica en función de diversos factores en tiempo real, sino que también mantengan la flexibilidad de sus precios para seguir siendo competitivas en sus respectivos mercados y obtener ganancias de sus productos o servicios.")

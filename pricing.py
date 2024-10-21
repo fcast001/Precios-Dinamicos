@@ -341,7 +341,7 @@ with col1:
     #st.image("img/demanda.png", caption="Descripción de la imagen", width=500)  # Mostrar algunos datos
 
 
-    st.markdown("En el código anterior, calculamos primero el multiplicador de demanda comparando la cantidad de"+ 
+    st.markdown("<br>En el código anterior, calculamos primero el multiplicador de demanda comparando la cantidad de"+ 
                  "pasajeros con percentiles que representan niveles de demanda alta y baja. Si la cantidad de pasajeros"+ 
                  "supera el percentil de demanda alta, el multiplicador de demanda se establece como la cantidad de pasajeros"+ 
                  "dividida por el percentil de demanda alta. De lo contrario, si la cantidad de pasajeros cae por debajo del"+ 

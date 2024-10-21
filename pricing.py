@@ -105,6 +105,7 @@ with col2:
                      trendline='ols')
     st.plotly_chart(fig)
 #####################################################################################################################################
+
 st.markdown("""
     <style>
     .custom-subheader {
@@ -114,7 +115,7 @@ st.markdown("""
         font-size: 24px;
     }
     </style>
-    <div class="custom-subheader">Implementación de una estrategia de precios dinámicos</div>
+    <div class="custom-subheader">Descripción de Costos por tipo de vehiculo</div>
     """, unsafe_allow_html=True)
 col1, col2 = st.columns(2)
 
@@ -122,12 +123,7 @@ with col1:
     #st.image("img/demanda.png", caption="Descripción de la imagen", width=500)  # Mostrar algunos datos
 
 
-    st.markdown("<br>Los datos proporcionados por la empresa indican que la empresa utiliza un modelo de precios que"+ 
-                "solo toma la duración esperada del viaje como un factor para determinar el precio del mismo. Ahora, "+
-                "implementaremos una estrategia de precios dinámicos con el objetivo de ajustar los costos de los viajes de" +
-                "forma dinámica en función de los niveles de demanda y oferta observados en los datos. Captará períodos de alta" +
-                "demanda y escenarios de baja oferta para aumentar los precios, mientras que los períodos de baja demanda y situaciones"+ 
-                "de alta oferta conducirán a reducciones de precios. A continuación se explica cómo implementar esta estrategia de precios dinámicos utilizando Python:", unsafe_allow_html=True)
+    st.markdown("<br>Ahora veamos la distribución del costo histórico de los viajes según el tipo de vehículo:", unsafe_allow_html=True)
 
     # Mostrar código del notebook
     notebook_code = """

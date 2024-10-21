@@ -37,6 +37,8 @@ st.markdown("""
     <div class="custom-subheader">Vista previa de los datos</div>
     """, unsafe_allow_html=True)
 st.markdown("<br>", unsafe_allow_html=True)
+
+st.markdown("[Data Set](https://statso.io/dynamic-pricing-case-study/)")
 # Sección 1: Diseño en una sola columna pero con imagen controlada en ancho
 st.write(data.head())
 
